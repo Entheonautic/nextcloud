@@ -96,16 +96,8 @@ doas crontab -e
 0 * * * * ocspcheck -N -o /etc/ssl/domain.tld.ocsp.pem /etc/ssl/domain.tld_fullchain.pem && rcctl reload httpd
 ```
 
-#### Change /etc/httpd.conf to have:
+#### Append to /etc/httpd.conf:
 ```
-ext_addr="*"
-domain="domain.tld"
-
-server $domain {
-        listen on $ext_addr port 80
-        block return 301 "https://$SERVER_NAME$REQUEST_URI"
-}
-
 server $domain {
         listen on $ext_addr tls port 443
 
